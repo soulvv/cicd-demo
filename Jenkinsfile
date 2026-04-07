@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // ─── UPDATE THESE THREE VARIABLES ───────────────────────────────────
-        DOCKERHUB_USERNAME = "soulvv"                     // Your DockerHub username
+        DOCKERHUB_USERNAME = "batsyyy"                    // Your DockerHub username
         IMAGE_NAME         = "cicd-demo"                  // Docker image name
         EC2_HOST           = "YOUR_EC2_PUBLIC_IP"         // e.g. 54.123.45.67
         EC2_USER           = "ubuntu"                     // Default AWS Ubuntu AMI user
