@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevOps Pipeline — soulvv</title>
+  <meta name="description" content="A live demo app deployed via Jenkins CI/CD pipeline, DockerHub & AWS EC2 by soulvv (Ayush Vishwakarma)" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Animated background -->
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">⚙️</span>
+      <span>soulvv / cicd-demo</span>
+    </div>
+    <div class="status-badge">
+      <span class="pulse"></span>
+      LIVE
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="tag">🚀 Auto-deployed via Jenkins Pipeline</div>
+      <h1 class="hero-title">
+        Jenkins CI/CD
+        <span class="gradient-text">Pipeline Demo</span>
+      </h1>
+      <p class="hero-sub">
+        Built by <strong>Ayush Vishwakarma (soulvv)</strong> · Powered by Docker, Jenkins &amp; AWS
+      </p>
+      <div class="hero-meta" id="build-info">
+        <span class="meta-item" id="version">v1.0.0</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item" id="build-id">Build: local</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item" id="timestamp">Loading...</span>
+      </div>
+    </section>
+
+    <!-- Pipeline Flow -->
+    <section class="pipeline-section">
+      <h2 class="section-title">Pipeline Flow</h2>
+      <div class="pipeline">
+        <div class="pipeline-step" style="--delay: 0s">
+          <div class="step-icon">💻</div>
+          <div class="step-label">Local</div>
+          <div class="step-sub">git push</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" style="--delay: 0.1s">
+          <div class="step-icon">🐙</div>
+          <div class="step-label">GitHub</div>
+          <div class="step-sub">Source SCM</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" style="--delay: 0.2s">
+          <div class="step-icon">🏗️</div>
+          <div class="step-label">Jenkins</div>
+          <div class="step-sub">CI / Build</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" style="--delay: 0.3s">
+          <div class="step-icon">🐋</div>
+          <div class="step-label">DockerHub</div>
+          <div class="step-sub">Image Registry</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" style="--delay: 0.4s">
+          <div class="step-icon">☁️</div>
+          <div class="step-label">AWS EC2</div>
+          <div class="step-sub">Deploy</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Cards -->
+    <section class="cards-section">
+      <h2 class="section-title">Tech Stack</h2>
+      <div class="cards">
+        <div class="card" style="--accent: #F4A012">
+          <div class="card-icon">🏗️</div>
+          <div class="card-name">Jenkins</div>
+          <div class="card-desc">Declarative Pipeline orchestrates the entire CI/CD workflow automatically on every push.</div>
+        </div>
+        <div class="card" style="--accent: #2496ED">
+          <div class="card-icon">🐋</div>
+          <div class="card-name">Docker</div>
+          <div class="card-desc">The app is containerized into a lightweight Alpine image and published to DockerHub.</div>
+        </div>
+        <div class="card" style="--accent: #FF9900">
+          <div class="card-icon">☁️</div>
+          <div class="card-name">AWS EC2</div>
+          <div class="card-desc">Jenkins SSHs into the EC2 instance, pulls the latest image, and runs the container.</div>
+        </div>
+        <div class="card" style="--accent: #24292F">
+          <div class="card-icon">🐙</div>
+          <div class="card-name">GitHub</div>
+          <div class="card-desc">Source code lives here. Every push to main branch triggers the Jenkins pipeline.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Build Info -->
+    <section class="info-section">
+      <h2 class="section-title">Live Build Info</h2>
+      <div class="info-card" id="live-info">
+        <div class="info-row">
+          <span class="info-key">Status</span>
+          <span class="info-val green" id="api-status">Fetching...</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Version</span>
+          <span class="info-val mono" id="api-version">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Build ID</span>
+          <span class="info-val mono" id="api-build">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Pipeline</span>
+          <span class="info-val mono" id="api-pipeline">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Deployed At</span>
+          <span class="info-val mono" id="api-time">—</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Made with ❤️ by <strong>Ayush Vishwakarma (soulvv)</strong> — Jenkins Declarative CICD Pipeline using AWS Cloud &amp; DockerHub</p>
+  </footer>
+
+  <script>
+    async function fetchInfo() {
+      try {
+        const res = await fetch('/api/info');
+        const data = await res.json();
+        document.getElementById('version').textContent = 'v' + data.version;
+        document.getElementById('build-id').textContent = 'Build: ' + data.build;
+        document.getElementById('timestamp').textContent = new Date(data.timestamp).toLocaleString();
+        document.getElementById('api-status').textContent = data.status.toUpperCase();
+        document.getElementById('api-version').textContent = data.version;
+        document.getElementById('api-build').textContent = data.build;
+        document.getElementById('api-pipeline').textContent = data.pipeline;
+        document.getElementById('api-time').textContent = new Date(data.timestamp).toLocaleString();
+      } catch (e) {
+        document.getElementById('api-status').textContent = 'Error fetching';
+      }
+    }
+    fetchInfo();
+    setInterval(fetchInfo, 10000);
+  </script>
+</body>
+</html>
